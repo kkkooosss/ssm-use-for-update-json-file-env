@@ -27,8 +27,7 @@ jobs:
          docker build -t kosdockerid/multi-server ./server
          docker build -t kosdockerid/multi-worker ./worker
       - name: Login to Dockerhub
-        run:
-          run: docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        run: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_ID }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
