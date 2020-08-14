@@ -1,0 +1,75 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Deploy to Amazon ECS with ecs-cli docker-compose
+
+env:
+  AWS_REGION: "eu-central-1"
+
+jobs:
+  deploy:
+    name: Test&build and push new images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test client image, build updated images and push them 
+        run: |
+         docker build -t kosdockerid/react-test -f ./client/Dockerfile.dev ./client
+         docker run kosdockerid/react-test npm test -- --coverag
+      - name: Build updated images
+        run: |   
+         docker build -t kosdockerid/multi-client ./client
+         docker build -t kosdockerid/multi-nginx ./nginx
+         docker build -t kosdockerid/multi-server ./server
+         docker build -t kosdockerid/multi-worker ./worker
+      - name: Login to Dockerhub
+        run: |
+         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - name: Push images to Dockerhub
+        run: |   
+         docker push kosdockerid/multi-client
+         docker push kosdockerid/multi-nginx
+         docker push kosdockerid/multi-server
+         docker push kosdockerid/multi-worker
+                    
+#
+#      
+#    - name: Checkout
+#      uses: actions/checkout@v1
+#   - name: Configure AWS credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+#        aws-region: ${{ env.AWS_REGION }}
+#    - name: Build, tag, and push image to Amazon ECR
+#      id: build-image
+#      env:
+#        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#        ECR_REPOSITORY: alb-http-ecs
+#        IMAGE_TAG: ${{ github.sha }}
+#      run: |
+#        # Build a docker container and
+#        # push it to ECR so that it can
+#        # be deployed to ECS.
+#        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+#        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+#        
+#    - name: Fill in the new image ID in the Amazon ECS task definition
+#      id: task-def
+#     uses: aws-actions/amazon-ecs-render-task-definition@v1
+#      with:
+#        task-definition: ecs-task-definition.json
+#        container-name: alb-scale-cont
+#        image: ${{ steps.build-image.outputs.image }}
+
+#    - name: Deploy Amazon ECS task definition
+#      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#      with:
+#        task-definition: ${{ steps.task-def.outputs.task-definition }}
+#        service: elb-auto-scale-service
+#        cluster: my-alb-ec2-cluster
+#        wait-for-service-stability: true
+#© 2020 GitHub, Inc.
