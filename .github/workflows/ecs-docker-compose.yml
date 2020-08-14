@@ -13,6 +13,9 @@ jobs:
     name: Test&build and push new images
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        
       - name: Test client image, build updated images and push them 
         run: |
          docker build -t kosdockerid/react-test -f ./client/Dockerfile.dev ./client
