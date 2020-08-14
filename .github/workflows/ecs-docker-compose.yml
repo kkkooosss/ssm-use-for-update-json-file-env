@@ -5,9 +5,6 @@ on:
 
 name: Deploy to Amazon ECS with ecs-cli docker-compose
 
-env:
-  AWS_REGION: "eu-central-1"
-
 jobs:
   deploy:
     name: Test&build and push new images
