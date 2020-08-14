@@ -19,7 +19,7 @@ jobs:
       - name: Test client image, build updated images and push them 
         run: |
          docker build -t kosdockerid/react-test -f ./client/Dockerfile.dev ./client
-         docker run kosdockerid/react-test npm test -- --coverag
+         docker run kosdockerid/react-test npm test -- --coverage
       - name: Build updated images
         run: |   
          docker build -t kosdockerid/multi-client ./client
@@ -28,7 +28,7 @@ jobs:
          docker build -t kosdockerid/multi-worker ./worker
       - name: Login to Dockerhub
         run: |
-         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+         echo ${{ secrets.$DOCKER_PASSWORD }} | docker login -u ${{ secrets.$DOCKER_ID }} --password-stdin
       - name: Push images to Dockerhub
         run: |   
          docker push kosdockerid/multi-client
