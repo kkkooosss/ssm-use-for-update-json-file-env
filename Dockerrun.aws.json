@@ -127,7 +127,7 @@
           "containerPort": 80
         }
       ],
-      "essential": true,
+      "essential": false,
       "environment": [
         {
           "name": "PGDATABASE",
