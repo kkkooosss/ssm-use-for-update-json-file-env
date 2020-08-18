@@ -18,7 +18,7 @@
         },
         {
           "name": "PGPASSWORD",
-          "value": "${{ secrets.POSTGRES_PASSWORD }}"
+          "value": "hardsuperpass-word"
         },
         {
           "name": "PGPORT",
@@ -26,7 +26,7 @@
         },
         {
           "name": "PGUSER",
-          "value": "${{ secrets.POSTGRES_USER }}"
+          "value": "postgres"
         },
         {
           "name": "REDIS_HOST",
@@ -55,7 +55,7 @@
         },
         {
           "name": "PGPASSWORD",
-          "value": "${{ secrets.POSTGRES_PASSWORD }}"
+          "value": "hardsuperpass-word"
         },
         {
           "name": "PGPORT",
@@ -63,7 +63,7 @@
         },
         {
           "name": "PGUSER",
-          "value": "{{ secrets.POSTGRES_USER }}"
+          "value": "postgres"
         },
         {
           "name": "REDIS_HOST",
@@ -92,7 +92,7 @@
         },
         {
           "name": "PGPASSWORD",
-          "value": "${{ secrets.POSTGRES_PASSWORD }}"
+          "value": "hardsuperpass-word"
         },
         {
           "name": "PGPORT",
@@ -100,7 +100,7 @@
         },
         {
           "name": "PGUSER",
-          "value": "{{ secrets.POSTGRES_USER }}"
+          "value": "postgres"
         },
         {
           "name": "REDIS_HOST",
@@ -139,7 +139,7 @@
         },
         {
           "name": "PGPASSWORD",
-          "value": "${{ secrets.POSTGRES_PASSWORD }}"
+          "value": "hardsuperpass-word"
         },
         {
           "name": "PGPORT",
@@ -147,7 +147,7 @@
         },
         {
           "name": "PGUSER",
-          "value": "{{ secrets.POSTGRES_USER }}"
+          "value": "postgres"
         },
         {
           "name": "REDIS_HOST",
@@ -159,5 +159,5 @@
         }
       ]
     }
-  ]
+  ],
 }
