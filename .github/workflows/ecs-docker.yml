@@ -8,7 +8,7 @@ env:
   EB_PACKEGE_S3_BUCKET_NAME: "elasticbeanstalk-eu-central-1-092663235681"
   EB_APP_NAME              : "multi-docker"
   EB_ENV_NAME              : "MultiDocker-env"
-  DEPLOY_PACKAGE_NAME      : "MultiDocker-env-${{ github.sha }}.zip"
+  DEPLOY_PACKAGE_NAME      : "MultiDocker-env-060f6473f0df1ae64df6ab522ae50507ee93edfd.zip"
   AWS_REGION               : "eu-central-1"
 
 jobs:
