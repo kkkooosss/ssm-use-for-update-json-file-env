@@ -4,37 +4,160 @@
     {
       "name": "client",
       "image": "kosdockerid/multi-client",
-      "hostname": "client",
+      "memory": 128,
+      "portMappings": [],
       "essential": false,
-      "memory": 128
+      "environment": [
+        {
+          "name": "PGDATABASE",
+          "value": "multi-docker"
+        },
+        {
+          "name": "PGHOST",
+          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "${{ env.POSTGRES_PASSWORD }}"
+        },
+        {
+          "name": "PGPORT",
+          "value": "5432"
+        },
+        {
+          "name": "PGUSER",
+          "value": "${{ env.POSTGRES_USER }}"
+        },
+        {
+          "name": "REDIS_HOST",
+          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": "6379"
+        }
+      ]
     },
     {
       "name": "server",
       "image": "kosdockerid/multi-server",
-      "hostname": "api",
+      "memory": 128,
+      "portMappings": [],
       "essential": false,
-      "memory": 128
+      "environment": [
+        {
+          "name": "PGDATABASE",
+          "value": "multi-docker"
+        },
+        {
+          "name": "PGHOST",
+          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "${{ env.POSTGRES_PASSWORD }}"
+        },
+        {
+          "name": "PGPORT",
+          "value": "5432"
+        },
+        {
+          "name": "PGUSER",
+          "value": "{{ env.POSTGRES_USER }}"
+        },
+        {
+          "name": "REDIS_HOST",
+          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": "6379"
+        }
+      ]
     },
     {
       "name": "worker",
-      "image": "stephengrider/multi-worker",
-      "hostname": "worker",
+      "image": "kosdockerid/multi-worker",
+      "memory": 128,
+      "portMappings": [],
       "essential": false,
-      "memory": 128
+      "environment": [
+        {
+          "name": "PGDATABASE",
+          "value": "multi-docker"
+        },
+        {
+          "name": "PGHOST",
+          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "${{ env.POSTGRES_PASSWORD }}"
+        },
+        {
+          "name": "PGPORT",
+          "value": "5432"
+        },
+        {
+          "name": "PGUSER",
+          "value": "{{ env.POSTGRES_USER }}"
+        },
+        {
+          "name": "REDIS_HOST",
+          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": "6379"
+        }
+      ]
     },
     {
       "name": "nginx",
       "image": "kosdockerid/multi-nginx",
-      "hostname": "nginx",
-      "essential": true,
+      "memory": 128,
+      "links": [
+        "client",
+        "server"
+      ],
       "portMappings": [
         {
           "hostPort": 80,
+          "protocol": "tcp",
           "containerPort": 80
         }
       ],
-      "links": ["client", "server"],
-      "memory": 128
+      "essential": true,
+      "environment": [
+        {
+          "name": "PGDATABASE",
+          "value": "multi-docker"
+        },
+        {
+          "name": "PGHOST",
+          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "${{ env.POSTGRES_PASSWORD }}"
+        },
+        {
+          "name": "PGPORT",
+          "value": "5432"
+        },
+        {
+          "name": "PGUSER",
+          "value": "{{ env.POSTGRES_USER }}"
+        },
+        {
+          "name": "REDIS_HOST",
+          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": "6379"
+        }
+      ]
     }
   ]
 }
