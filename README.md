@@ -4,6 +4,8 @@
 
 This CI/CD pipeline uses GitHub Actions which makes a deploymeny of new revision of sample multi container Docker aplication with external database based on RDS Postgres and Elasticash for Redis as well. 
 
+Source code of this application was taken [here](https://github.com/StephenGrider/multi-docker). [Preview](#preview) and [Diagram](#diagram) of application.
+
 Deployment based on Elastic Beanstalk update environment after update of all Docker images on Dockerhub.
 
 **Services** required for applying of this pipeline:
@@ -29,6 +31,11 @@ Also, following **secrets** should be added to repositories settings required fo
   - POSTGRES_USER
   - POSTGRES_PASSWORD  
 
+## preview
+![Preview](https://github.com/kkkooosss/React-app-for-multi-docker-CI-CD-deployment-to-ecs/blob/master/images/Fibonacci_calculator.png)
+
+## diagram
+![Diagram](https://github.com/kkkooosss/React-app-for-multi-docker-CI-CD-deployment-to-ecs/blob/master/images/AWS%20Multi-container%20Docker%20Application.png)
 
 
 
