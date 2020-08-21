@@ -11,11 +11,11 @@
       "environment": [
         {
           "name": "PGDATABASE",
-          "value": "multi-docker"
+          "value": "DB_NAME"
         },
         {
           "name": "PGHOST",
-          "value": "POSTGRES_ENDPOIN"
+          "value": "DB_HOSTNAME"
         },
         {
           "name": "PGPASSWORD",
@@ -31,7 +31,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "REDIS_ENDPOINT"
+          "value": "DB_REDIS_HOSTNAME"
         },
         {
           "name": "REDIS_PORT",
@@ -49,11 +49,11 @@
       "environment": [
         {
           "name": "PGDATABASE",
-          "value": "multi-docker"
+          "value": "DB_NAME"
         },
         {
           "name": "PGHOST",
-          "value": "POSTGRES_ENDPOIN"
+          "value": "DB_HOSTNAME"
         },
         {
           "name": "PGPASSWORD",
@@ -69,7 +69,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "REDIS_ENDPOINT"
+          "value": "DB_REDIS_HOSTNAME"
         },
         {
           "name": "REDIS_PORT",
@@ -87,11 +87,11 @@
       "environment": [
         {
           "name": "PGDATABASE",
-          "value": "multi-docker"
+          "value": "DB_NAME"
         },
         {
           "name": "PGHOST",
-          "value": "POSTGRES_ENDPOIN"
+          "value": "DB_HOSTNAME"
         },
         {
           "name": "PGPASSWORD",
@@ -107,7 +107,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "REDIS_ENDPOINT"
+          "value": "DB_REDIS_HOSTNAME"
         },
         {
           "name": "REDIS_PORT",
@@ -135,11 +135,11 @@
       "environment": [
         {
           "name": "PGDATABASE",
-          "value": "multi-docker"
+          "value": "DB_NAME"
         },
         {
           "name": "PGHOST",
-          "value": "POSTGRES_ENDPOIN"
+          "value": "DB_HOSTNAME"
         },
         {
           "name": "PGPASSWORD",
@@ -155,7 +155,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "REDIS_ENDPOINT"
+          "value": "DB_REDIS_HOSTNAME"
         },
         {
           "name": "REDIS_PORT",
