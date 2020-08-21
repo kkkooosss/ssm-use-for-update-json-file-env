@@ -15,7 +15,7 @@
         },
         {
           "name": "PGHOST",
-          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+          "value": "POSTGRES_ENDPOIN"
         },
         {
           "name": "PGPASSWORD",
@@ -31,7 +31,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+          "value": "REDIS_ENDPOINT"
         },
         {
           "name": "REDIS_PORT",
@@ -53,7 +53,7 @@
         },
         {
           "name": "PGHOST",
-          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+          "value": "POSTGRES_ENDPOIN"
         },
         {
           "name": "PGPASSWORD",
@@ -69,7 +69,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+          "value": "REDIS_ENDPOINT"
         },
         {
           "name": "REDIS_PORT",
@@ -91,7 +91,7 @@
         },
         {
           "name": "PGHOST",
-          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+          "value": "POSTGRES_ENDPOIN"
         },
         {
           "name": "PGPASSWORD",
@@ -107,7 +107,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+          "value": "REDIS_ENDPOINT"
         },
         {
           "name": "REDIS_PORT",
@@ -139,7 +139,7 @@
         },
         {
           "name": "PGHOST",
-          "value": "multi-docker.crrqphzb15jt.eu-central-1.rds.amazonaws.com"
+          "value": "POSTGRES_ENDPOIN"
         },
         {
           "name": "PGPASSWORD",
@@ -155,7 +155,7 @@
         },
         {
           "name": "REDIS_HOST",
-          "value": "multi-docker-redis.jvhclb.ng.0001.euc1.cache.amazonaws.com"
+          "value": "REDIS_ENDPOINT"
         },
         {
           "name": "REDIS_PORT",
