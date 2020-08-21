@@ -1,0 +1,56 @@
+on:
+  push:
+    branches:
+      - master
+
+name: pass env from ssm to json file
+env:
+  EB_PACKEGE_S3_BUCKET_NAME: "elasticbeanstalk-eu-central-1-092663235681"
+  EB_APP_NAME              : "ssm-pass-env-to-json-file"
+  DEPLOY_PACKAGE_NAME      : "ssm-pass-${{ github.sha }}.zip"
+
+jobs:
+  build_test_push:    
+    name: pass env from ssm to json file
+    runs-on: ubuntu-latest
+    steps:
+      - name: env-variables
+        run: |
+          export DB_USER=`aws ssm get-parameter --name POSTGRES_USER --output text --query Parameter.Value`
+          export DB_PASS=`aws ssm get-parameter --name POSTGRES_PASSWORD --with-decryption --output text --query Parameter.Value`
+          export DB_HOSTNAME=`aws ssm get-parameter --name PGHOST --output text --query Parameter.Value`
+          export DB_NAME=`aws ssm get-parameter --name PGDATABASE --output text --query Parameter.Value`
+          export DB_REDIS_HOSTNAME=`aws ssm get-parameter --name REDIS_HOST --output text --query Parameter.Value`
+          echo $DB*
+          export DOCKER_ID=`aws ssm get-parameter --name POSTGRES_PASSWORD --with-decryption --output text --query Parameter.Value`
+          export DOCKER_PASS=`aws ssm get-parameter --name POSTGRES_PASSWORD --with-decryption --output text --query Parameter.Value`
+          echo $DOCKER*
+          
+      - name: Git clone our REPO
+        uses: actions/checkout@v2
+      - name: Login to Dockerhub 
+        run: echo ${{ env.DOCKER_PASS}} | docker login -u ${{ env.DOCKER_ID}} --password-stdin
+      - name: DB Credentials
+        run: |
+          sed -i "s/POSTGRES_USER/${{ env.DB_USER }}/g" Dockerrun.aws.json
+          sed -i "s/POSTGRES_PASSWORD/${{ env.DB_PASS }}/g" Dockerrun.aws.json
+          sed -i "s/DB_NAME/${{ env.DB_NAME }}/g" Dockerrun.aws.json
+          sed -i "s/DB_HOSTNAME/${{ env.DB_HOSTNAME }}/g" Dockerrun.aws.json
+          sed -i "s/DB_REDIS_HOSTNAME/${{ env.DB_REDIS_HOSTNAME }}/g" Dockerrun.aws.json
+       
+      - name: Create ZIP packege from REPO
+        run : zip -r ${{ env.DEPLOY_PACKAGE_NAME}} ./ -x *.git*
+               
+      - name: Configure my AWS 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id    : ${{ secrets.ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY}}
+          aws-region           : ${{ secrets.AWS_REGION }}      
+       
+      - name: Copy ZIP packege to S3
+        run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME}}  s3://${{ env.EB_PACKEGE_S3_BUCKET_NAME }}/multi-docker/   
+        
+      - name: Print success msg
+        run: echo "Zip-package copied successfully"      
+      
