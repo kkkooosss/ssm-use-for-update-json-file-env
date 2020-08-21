@@ -35,14 +35,13 @@ jobs:
           sed -i "s/POSTGRES_USER/$DB_USER/g" Dockerrun.aws.json
           sed -i "s/POSTGRES_PASSWORD/$DB_PASS/g" Dockerrun.aws.json
           sed -i "s/DB_NAME/$DB_NAME/g" Dockerrun.aws.json
-          sed -i "s/DB_HOSTNAME/$env.DB_HOSTNAME/g" Dockerrun.aws.json
+          sed -i "s/DB_HOSTNAME/$DB_HOSTNAME/g" Dockerrun.aws.json
           sed -i "s/DB_REDIS_HOSTNAME/$DB_REDIS_HOSTNAME/g" Dockerrun.aws.json
                 
       - name: Login to Dockerhub 
         run: |
            export DOCKER_ID=`aws ssm get-parameter --name DOCKER_ID --with-decryption --output text --query Parameter.Value`
            export DOCKER_PASS=`aws ssm get-parameter --name DOCKER_PASS --with-decryption --output text --query Parameter.Value`
-           env | grep DOCKER
            echo $DOCKER_PASS | docker login -u $DOCKER_ID --password-stdin
                              
       - name: Create ZIP packege from REPO
