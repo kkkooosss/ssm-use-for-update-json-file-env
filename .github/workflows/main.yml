@@ -32,11 +32,11 @@ jobs:
           export DB_NAME=`aws ssm get-parameter --name PGDATABASE --output text --query Parameter.Value`
           export DB_REDIS_HOSTNAME=`aws ssm get-parameter --name REDIS_HOST --output text --query Parameter.Value`
           
-          sed -i "s/POSTGRES_USER/${{ env.DB_USER }}/g" Dockerrun.aws.json
-          sed -i "s/POSTGRES_PASSWORD/${{ env.DB_PASS }}/g" Dockerrun.aws.json
-          sed -i "s/DB_NAME/${{ env.DB_NAME }}/g" Dockerrun.aws.json
-          sed -i "s/DB_HOSTNAME/${{ env.DB_HOSTNAME }}/g" Dockerrun.aws.json
-          sed -i "s/DB_REDIS_HOSTNAME/${{ env.DB_REDIS_HOSTNAME }}/g" Dockerrun.aws.json
+          sed -i "s/POSTGRES_USER/$DB_USER/g" Dockerrun.aws.json
+          sed -i "s/POSTGRES_PASSWORD/$DB_PASS/g" Dockerrun.aws.json
+          sed -i "s/DB_NAME/$DB_NAME/g" Dockerrun.aws.json
+          sed -i "s/DB_HOSTNAME/$env.DB_HOSTNAME/g" Dockerrun.aws.json
+          sed -i "s/DB_REDIS_HOSTNAME/$DB_REDIS_HOSTNAME/g" Dockerrun.aws.json
                 
       - name: Login to Dockerhub 
         run: |
