@@ -28,10 +28,10 @@ jobs:
           export DB_HOSTNAME=`aws ssm get-parameter --name PGHOST --output text --query Parameter.Value`
           export DB_NAME=`aws ssm get-parameter --name PGDATABASE --output text --query Parameter.Value`
           export DB_REDIS_HOSTNAME=`aws ssm get-parameter --name REDIS_HOST --output text --query Parameter.Value`
-          echo $DB*
-          export DOCKER_ID=`aws ssm get-parameter --name POSTGRES_PASSWORD --with-decryption --output text --query Parameter.Value`
-          export DOCKER_PASS=`aws ssm get-parameter --name POSTGRES_PASSWORD --with-decryption --output text --query Parameter.Value`
-          echo $DOCKER*
+          env | grep DB
+          export DOCKER_ID=`aws ssm get-parameter --name DOCKER_ID --with-decryption --output text --query Parameter.Value`
+          export DOCKER_PASS=`aws ssm get-parameter --name DOCKER_PASS --with-decryption --output text --query Parameter.Value`
+          env | grep DOCKER
           
       - name: Git clone our REPO
         uses: actions/checkout@v2
