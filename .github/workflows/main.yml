@@ -21,6 +21,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY}}
           aws-region           : ${{ secrets.AWS_REGION }}      
       
+      - name: Git clone our REPO
+        uses: actions/checkout@v2
+      
       - name: env-variables
         run: |
           export DB_USER=`aws ssm get-parameter --name POSTGRES_USER --output text --query Parameter.Value`
@@ -28,26 +31,20 @@ jobs:
           export DB_HOSTNAME=`aws ssm get-parameter --name PGHOST --output text --query Parameter.Value`
           export DB_NAME=`aws ssm get-parameter --name PGDATABASE --output text --query Parameter.Value`
           export DB_REDIS_HOSTNAME=`aws ssm get-parameter --name REDIS_HOST --output text --query Parameter.Value`
-          env | grep DB
+          
+          sed -i "s/POSTGRES_USER/${{ env.DB_USER }}/g" Dockerrun.aws.json
+          sed -i "s/POSTGRES_PASSWORD/${{ env.DB_PASS }}/g" Dockerrun.aws.json
+          sed -i "s/DB_NAME/${{ env.DB_NAME }}/g" Dockerrun.aws.json
+          sed -i "s/DB_HOSTNAME/${{ env.DB_HOSTNAME }}/g" Dockerrun.aws.json
+          sed -i "s/DB_REDIS_HOSTNAME/${{ env.DB_REDIS_HOSTNAME }}/g" Dockerrun.aws.json
                 
-      - name: Git clone our REPO
-        uses: actions/checkout@v2
-        
       - name: Login to Dockerhub 
         run: |
            export DOCKER_ID=`aws ssm get-parameter --name DOCKER_ID --with-decryption --output text --query Parameter.Value`
            export DOCKER_PASS=`aws ssm get-parameter --name DOCKER_PASS --with-decryption --output text --query Parameter.Value`
            env | grep DOCKER
            echo $DOCKER_PASS | docker login -u $DOCKER_ID --password-stdin
-                         
-      - name: DB Credentials
-        run: |
-          sed -i "s/POSTGRES_USER/${{ env.DB_USER }}/g" Dockerrun.aws.json
-          sed -i "s/POSTGRES_PASSWORD/${{ env.DB_PASS }}/g" Dockerrun.aws.json
-          sed -i "s/DB_NAME/${{ env.DB_NAME }}/g" Dockerrun.aws.json
-          sed -i "s/DB_HOSTNAME/${{ env.DB_HOSTNAME }}/g" Dockerrun.aws.json
-          sed -i "s/DB_REDIS_HOSTNAME/${{ env.DB_REDIS_HOSTNAME }}/g" Dockerrun.aws.json
-       
+                             
       - name: Create ZIP packege from REPO
         run : zip -r ${{ env.DEPLOY_PACKAGE_NAME}} ./ -x *.git*
                
